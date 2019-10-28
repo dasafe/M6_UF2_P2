@@ -8,9 +8,10 @@ import java.util.Scanner;
 
 public class SGBD {
 
+	static Scanner reader = new Scanner(System.in);
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner reader = new Scanner(System.in);
 		Connection conexion;
 		int opcion = 0;
 
@@ -53,9 +54,27 @@ public class SGBD {
 		}
 	}
 
-	private static void altaSocio(Statement st) {
+	private static void altaSocio(Statement st) throws SQLException {
 		// TODO Auto-generated method stub
 
+		int cod;
+		String nombre = reader.nextLine();
+		String apellidos = reader.nextLine();
+		int edad = reader.nextInt();
+		String pais = reader.nextLine();
+		String provincia = reader.nextLine();
+		String poblacion = reader.nextLine();
+		String cp = reader.nextLine();
+		String direccion = reader.nextLine();
+		String telefono = reader.nextLine();
+		String fechaAlta = reader.nextLine();
+		int cuota;
+
+		st.executeUpdate(
+				"INSERT INTO socio (cod_soc, nombre, apellidos, edad, pais, provincia, poblacion, cp, direccion, telefono, fechaalta, cuota) VALUES ("
+						+ cod + ",'" + nombre + "','" + apellidos + "'," + edad + ",'" + pais + "','" + provincia
+						+ "','" + poblacion + "','" + cp + "','" + direccion + "','" + telefono + "','" + fechaAlta
+						+ "'," + cuota + ");");
 	}
 
 	private static void cuotaSocio(Statement st) {
