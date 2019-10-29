@@ -10,6 +10,8 @@ public class SGBD {
 
 	static Scanner reader = new Scanner(System.in);
 
+	static int cod = 2000;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Connection conexion;
@@ -57,18 +59,30 @@ public class SGBD {
 	private static void altaSocio(Statement st) throws SQLException {
 		// TODO Auto-generated method stub
 
-		int cod;
+		System.out.println("- Datos Nuevo Socio -");
+		System.out.println("------------------------");
+		cod += 100;
+		System.out.println("Nombre:");
 		String nombre = reader.nextLine();
+		System.out.println("Apellidos:");
 		String apellidos = reader.nextLine();
+		System.out.println("Edad:");
 		int edad = reader.nextInt();
+		System.out.println("Pais:");
 		String pais = reader.nextLine();
+		System.out.println("Provincia:");
 		String provincia = reader.nextLine();
+		System.out.println("Poblacion:");
 		String poblacion = reader.nextLine();
+		System.out.println("Codigo Postal:");
 		String cp = reader.nextLine();
+		System.out.println("Direccion:");
 		String direccion = reader.nextLine();
+		System.out.println("Telefono:");
 		String telefono = reader.nextLine();
-		String fechaAlta = reader.nextLine();
-		int cuota;
+		SimpleDateFormat formato = new SimpleDateFormat("yyy-MM-dd");
+		String fechaAlta = formato.format(Calendar.getInstance().getTime());
+		int cuota = 50;
 
 		st.executeUpdate(
 				"INSERT INTO socio (cod_soc, nombre, apellidos, edad, pais, provincia, poblacion, cp, direccion, telefono, fechaalta, cuota) VALUES ("
@@ -77,8 +91,14 @@ public class SGBD {
 						+ "'," + cuota + ");");
 	}
 
-	private static void cuotaSocio(Statement st) {
+	private static void cuotaSocio(Statement st) throws SQLException {
 		// TODO Auto-generated method stub
+
+		ResultSet rs = st.executeQuery("SELECT * FROM socio");
+		while (rs.next()) {
+			System.out.println("nombre=" + rs.getObject("nombre") + ", apellidos=" + rs.getObject("apellidos")
+					+ ", edad=" + rs.getObject("edad"));
+		}
 
 	}
 
@@ -86,4 +106,5 @@ public class SGBD {
 		// TODO Auto-generated method stub
 
 	}
+
 }
