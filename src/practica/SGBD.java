@@ -26,7 +26,7 @@ public class SGBD {
 					"root", "");
 			Statement st = conexion.createStatement();
 
-			//Obtener max cod_soc
+			// Obtener max cod_soc
 			ResultSet rs = st.executeQuery("SELECT max(cod_soc) FROM socio");
 			if (rs.next()) {
 				cod = rs.getInt("max(cod_soc)");
@@ -34,7 +34,7 @@ public class SGBD {
 
 			while (opcion != 5) {
 
-				System.out.println("1. Alta socio\n2. Cuota socio\n3. Eliminar socio\n4. Salir\nOpcion:");
+				System.out.println("1. Dar de alta socio\n2. Ver cuotas socios\n3. Eliminar socio\n4. Salir\nOpcion:");
 				opcion = reader.nextInt();
 				reader.nextLine();
 				switch (opcion) {
@@ -108,6 +108,24 @@ public class SGBD {
 			System.out.println(rs.getObject("cod_soc") + ", " + rs.getObject("nombre") + ", "
 					+ rs.getObject("apellidos") + ", " + rs.getObject("cuota"));
 		}
+		System.out.println("\nQuiere cambiar la cuota de algun socio? S/N");
+		String sn = "";
+		do {
+			sn = reader.nextLine();
+			if (sn.equalsIgnoreCase("S")) {
+				System.out.println("Introduce el codigo del socio:");
+				int codSoc = reader.nextInt();
+				reader.nextLine();
+				System.out.println("Introduce la nueva cuota:");
+				int newCuota = reader.nextInt();
+				reader.nextLine();
+				st.executeUpdate("UPDATE socio SET cuota = " + newCuota + "WHERE cod_soc = " + codSoc);
+				System.out.println("\nCuota socio " + codSoc + " actualizada");
+			} else if (sn.equalsIgnoreCase("N")) {
+			} else {
+				System.out.println("Opcion invalida");
+			}
+		} while (!sn.equalsIgnoreCase("S") && !sn.equalsIgnoreCase("N"));
 	}
 
 	private static void eliminarSocio(Statement st) throws SQLException {
